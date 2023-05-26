@@ -11,7 +11,7 @@ export const Global = createGlobalStyle`
 
     :root{
 
-        --color-primary: blue;
+        --color-primary: #439AF8;
 
         --color-grey-600: #333333;
         --color-grey-300: #828282;
@@ -40,6 +40,18 @@ export const Global = createGlobalStyle`
 
     button{
         cursor: pointer;
+    }
+
+    .divInputError{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+    }
+
+    .error{
+        color: var(--color-negative);
+        font-size: var(--size-6);
     }
 
 `

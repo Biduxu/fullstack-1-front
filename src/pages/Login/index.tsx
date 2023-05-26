@@ -6,7 +6,7 @@ export function Login() {
 
     return (
         <LoginStyled>
-            <div>
+            <div className="firstDiv">
                 <h1>Lista de Contatos</h1>
                 <Form/>
             </div>
