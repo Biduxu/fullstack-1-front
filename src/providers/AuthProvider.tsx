@@ -16,6 +16,14 @@ export interface Contact {
     registrationDate: Date
 }
 
+export interface User {
+    id: string,
+    fullName: string,
+    email: string,
+    phone: string,
+    registrationDate: Date
+}
+
 interface AuthContextValues {
     singIn: (data: LoginData) => void,
     registerUser: (data: RegisterData) => void,
@@ -23,6 +31,7 @@ interface AuthContextValues {
     loading: boolean,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     contacts: Contact[] | undefined,
+    user: User | undefined,
     setLogin: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -36,6 +45,7 @@ export function AuthProvider({children}: AuthProviderProps){
     const [loading, setLoading] = useState(true)
 
     const [contacts, setContacts] = useState<Contact[]>()
+    const [user, setUser] = useState<User>()
 
     const [login, setLogin] = useState<boolean>(false)
 
@@ -49,8 +59,12 @@ export function AuthProvider({children}: AuthProviderProps){
 
             try{
                 const response = await api.get("/contacts", {headers: {authorization: `Bearer ${token}`}})
-
                 const contactsResponse: Contact[] = response.data
+
+                const responseUser = await api.get("/users", {headers: {authorization: `Bearer ${token}`}})
+                const userData: User = responseUser.data 
+                
+                setUser(userData)
                 setContacts(contactsResponse)
                 navigate("/dashboard")
                 
@@ -87,7 +101,7 @@ export function AuthProvider({children}: AuthProviderProps){
     }
 
     return (
-        <AuthContext.Provider value={{singIn, messageError, registerUser, loading, setLoading, contacts, setLogin}}>
+        <AuthContext.Provider value={{singIn, messageError, registerUser, loading, setLoading, contacts, setLogin, user}}>
             {children}
         </AuthContext.Provider>
     )

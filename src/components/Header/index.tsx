@@ -5,7 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 export function Header() {
 
-    const {setLogin} = useAuth()
+    const {setLogin, user} = useAuth()
 
     const navigate = useNavigate()
 
@@ -18,7 +18,7 @@ export function Header() {
     return (
         <HeaderStyled>
             <div>
-                <h2>Nome do Perfil</h2>
+                <h2>{user?.fullName}</h2>
                 <button onClick={()=>{logout()}}>Sair</button>
             </div>
         </HeaderStyled>
