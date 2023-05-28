@@ -1,4 +1,5 @@
 import { useModal } from "../../hooks/useModal";
+import { FormModal } from "../FormModal";
 import { ModalStyled } from "./styled";
 
 
@@ -16,17 +17,19 @@ export function Modal() {
             <div className="modalContent">
                 {isUpdate ? (
                     <>
-                        <div>
+                        <div className="divTitleButton">
                             <h2>Editar</h2>
                             <button onClick={()=>{closeModal()}}>X</button>
                         </div>
+                        <FormModal/>
                     </>
                 ):(
                     <>
-                        <div>
-                            <h2>Cadastrar</h2>
+                        <div className="divTitleButton">
+                            <h2>Cadastrar Contato</h2>
                             <button onClick={()=>{closeModal()}}>X</button>
                         </div>
+                        <FormModal/>
                     </>
                 )}
             </div>
