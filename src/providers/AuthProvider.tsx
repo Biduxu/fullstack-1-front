@@ -4,9 +4,16 @@ import { useNavigate } from "react-router-dom"
 import { api } from "../services/api"
 import { RegisterData } from "../components/RegisterForm/validators"
 
-
 interface AuthProviderProps {
     children: ReactNode
+}
+
+export interface Contact {
+    id: string,
+    fullName: string,
+    email: string,
+    phone: string,
+    registrationDate: Date
 }
 
 interface AuthContextValues {
@@ -15,6 +22,8 @@ interface AuthContextValues {
     messageError: boolean,
     loading: boolean,
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
+    contacts: Contact[] | undefined,
+    setLogin: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AuthContext = createContext<AuthContextValues>({} as AuthContextValues)
@@ -26,6 +35,10 @@ export function AuthProvider({children}: AuthProviderProps){
     const [messageError, setMessageError] = useState(false)
     const [loading, setLoading] = useState(true)
 
+    const [contacts, setContacts] = useState<Contact[]>()
+
+    const [login, setLogin] = useState<boolean>(false)
+
     useEffect(()=>{
         async function loadUser(){
             const token = localStorage.getItem("tokenListContacts")
@@ -35,8 +48,10 @@ export function AuthProvider({children}: AuthProviderProps){
             }
 
             try{
-                await api.get("/users", {headers: {authorization: `Bearer ${token}`}})
-                
+                const response = await api.get("/contacts", {headers: {authorization: `Bearer ${token}`}})
+
+                const contactsResponse: Contact[] = response.data
+                setContacts(contactsResponse)
                 navigate("/dashboard")
                 
             }catch(err){
@@ -46,7 +61,7 @@ export function AuthProvider({children}: AuthProviderProps){
             }
         }
         loadUser()
-    },[])
+    },[login])
 
     async function singIn(data: LoginData){
         try{
@@ -54,7 +69,7 @@ export function AuthProvider({children}: AuthProviderProps){
 
             localStorage.setItem("tokenListContacts", response.data.token)
             setMessageError(false)
-            navigate("/dashboard")
+            setLogin(true)
         }catch(err){
             setMessageError(true)
         }
@@ -63,7 +78,7 @@ export function AuthProvider({children}: AuthProviderProps){
 
     async function registerUser(data: RegisterData){
         try{
-            const response = await api.post("/users", data)
+            await api.post("/users", data)
             console.log("cadastrado")
             setMessageError(false)
         }catch(err){
@@ -72,7 +87,7 @@ export function AuthProvider({children}: AuthProviderProps){
     }
 
     return (
-        <AuthContext.Provider value={{singIn, messageError, registerUser, loading, setLoading}}>
+        <AuthContext.Provider value={{singIn, messageError, registerUser, loading, setLoading, contacts, setLogin}}>
             {children}
         </AuthContext.Provider>
     )

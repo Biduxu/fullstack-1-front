@@ -2,11 +2,11 @@ import { Navigate, Outlet } from "react-router-dom"
 import { useAuth } from "../../hooks/useAuth"
 
 export function ProtectRoutes(){
-    const {loading} = useAuth()
+    const {loading, contacts} = useAuth()
 
     if(loading){
         return null
     }
 
-    return <Navigate to="/"/>
+    return contacts !== undefined ? <Outlet/> : <Navigate to="/"/>
 }

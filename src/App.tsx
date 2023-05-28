@@ -1,4 +1,5 @@
 import { AuthProvider } from './providers/AuthProvider'
+import { ModalProvider } from './providers/ModalProvider'
 import { RoutesMain } from './routes'
 import { Global } from './styles/global'
 
@@ -8,7 +9,9 @@ function App() {
     <>
       <Global/>
       <AuthProvider>
-        <RoutesMain/>
+        <ModalProvider>
+          <RoutesMain/>
+        </ModalProvider>
       </AuthProvider>
     </>
   )
