@@ -1,5 +1,6 @@
 import { useModal } from "../../hooks/useModal";
 import { Contact } from "../../providers/AuthProvider";
+import { api } from "../../services/api";
 import { CardContactStyled } from "./styled";
 
 interface CardContactProps {
@@ -9,11 +10,23 @@ interface CardContactProps {
 
 export function CardContact ({contact}: CardContactProps){
 
-    const { setStatusModal, setIsUpdate } = useModal()
+    const { setStatusModal, setIsUpdate, setId } = useModal()
 
-    function update() {
+    function update(id: string) {
+        setId(id)
         setIsUpdate(true)
         setStatusModal(true)
+    }
+
+    async function removeContact(id: string){
+        const token = localStorage.getItem("tokenListContact")
+
+        try{
+            await api.delete(`/contacts/${id}`, {headers: {authorization: `Bearer ${token}`}})
+            window.location.reload()
+        }catch(err){
+            return null
+        }   
     }
 
     return (
@@ -26,8 +39,8 @@ export function CardContact ({contact}: CardContactProps){
                 <p>{`Telefone: ${contact.phone}`}</p>
             </div>
             <div className="divButtons">
-                <button onClick={()=>{update()}}>Editar</button>
-                <button>Excluir</button>
+                <button onClick={()=>{update(contact.id)}}>Editar</button>
+                <button onClick={()=>{removeContact(contact.id)}}>Excluir</button>
             </div>
         </CardContactStyled>
     )
