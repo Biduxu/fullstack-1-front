@@ -51,7 +51,7 @@ export const Global = createGlobalStyle`
 
     .error{
         color: var(--color-negative);
-        font-size: var(--size-6);
+        font-size: var(--size-5);
     }
 
 `
