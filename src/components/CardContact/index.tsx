@@ -19,7 +19,7 @@ export function CardContact ({contact}: CardContactProps){
     }
 
     async function removeContact(id: string){
-        const token = localStorage.getItem("tokenListContact")
+        const token = localStorage.getItem("tokenListContacts")
 
         try{
             await api.delete(`/contacts/${id}`, {headers: {authorization: `Bearer ${token}`}})
