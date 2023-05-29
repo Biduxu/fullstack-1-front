@@ -32,7 +32,9 @@ interface AuthContextValues {
     setLoading: React.Dispatch<React.SetStateAction<boolean>>,
     contacts: Contact[] | undefined,
     user: User | undefined,
-    setLogin: React.Dispatch<React.SetStateAction<boolean>>
+    setLogin: React.Dispatch<React.SetStateAction<boolean>>,
+    toastfy: boolean,
+    setToastfy: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const AuthContext = createContext<AuthContextValues>({} as AuthContextValues)
@@ -48,6 +50,8 @@ export function AuthProvider({children}: AuthProviderProps){
     const [user, setUser] = useState<User>()
 
     const [login, setLogin] = useState<boolean>(false)
+
+    const [toastfy, setToastfy] = useState<boolean>(false)
 
     useEffect(()=>{
         async function loadUser(){
@@ -93,15 +97,16 @@ export function AuthProvider({children}: AuthProviderProps){
     async function registerUser(data: RegisterData){
         try{
             await api.post("/users", data)
-            console.log("cadastrado")
+            
             setMessageError(false)
+            setToastfy(true)
         }catch(err){
             setMessageError(true)
         }
     }
 
     return (
-        <AuthContext.Provider value={{singIn, messageError, registerUser, loading, setLoading, contacts, setLogin, user}}>
+        <AuthContext.Provider value={{singIn, messageError, registerUser, loading, setLoading, contacts, setLogin, user, toastfy, setToastfy}}>
             {children}
         </AuthContext.Provider>
     )
