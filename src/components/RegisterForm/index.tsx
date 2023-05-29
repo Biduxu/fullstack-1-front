@@ -11,12 +11,17 @@ interface RegisterFormProps {
 
 export function RegisterForm({setIsRegister}: RegisterFormProps) {
 
-    const {registerUser, messageError} = useAuth()
+    const {registerUser, messageError, setToastfy} = useAuth()
 
     const {register, handleSubmit, formState: {errors}} = useForm<RegisterData>({
         mode: "onBlur",
         resolver: zodResolver(schemaRegister)
     })
+
+    function returnToLogin() {
+        setToastfy(false)
+        setIsRegister(false)
+    }
 
     return (
         <RegisterFormStyled>
@@ -44,7 +49,7 @@ export function RegisterForm({setIsRegister}: RegisterFormProps) {
                 )}
                 <div className="divButtons">
                     <button type="submit">Cadastrar</button>
-                    <button onClick={()=>setIsRegister(false)}>Voltar ao login</button>
+                    <button onClick={()=>returnToLogin()}>Voltar ao login</button>
                 </div>
             </form>
         </RegisterFormStyled>
