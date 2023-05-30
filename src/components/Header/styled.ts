@@ -3,6 +3,7 @@ import styled from "styled-components"
 export const HeaderStyled = styled.header`
     background-color: var(--color-primary);
     width: 100%;
+    padding: 0 20px;
 
     div{
         margin: 0 auto;

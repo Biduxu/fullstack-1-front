@@ -29,4 +29,13 @@ export const LoginFormStyled = styled.div`
         background-color: var(--color-grey-600);
         color: var(--color-grey-0);
     }
+
+    @media(max-width: 800px) {
+        button{
+            width: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 `

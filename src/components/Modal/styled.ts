@@ -9,6 +9,7 @@ export const ModalStyled = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
 
     .modalContent{
         width: 50%;
@@ -42,5 +43,13 @@ export const ModalStyled = styled.div`
 
     .divTitleButton button:hover{
         color: var(--color-grey-300);
+    }
+
+    @media(max-width: 800px) {
+        padding: 20px;
+
+        .modalContent{
+            width: 100%;
+        }
     }
 `
