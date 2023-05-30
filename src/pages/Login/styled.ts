@@ -20,4 +20,11 @@ export const LoginStyled = styled.body`
         color: var(--color-grey-0);
         font-size: var(--size-0);
     }
+
+    @media(max-width: 800px) {
+        .firstDiv{
+            padding: 20px;
+            width: 100%;
+        }
+    }
 `

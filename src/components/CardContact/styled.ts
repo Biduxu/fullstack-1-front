@@ -49,4 +49,15 @@ export const CardContactStyled = styled.li`
         border: 1px solid var(--color-grey-600);
         color: var(--color-grey-0);
     }
+
+    @media(max-width: 750px) {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        align-items: center;
+
+        div{
+            width: 80%;
+        }
+    }
 `

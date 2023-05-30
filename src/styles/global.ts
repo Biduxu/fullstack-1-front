@@ -28,6 +28,7 @@ export const Global = createGlobalStyle`
         --size-4: 16px;
         --size-5: 14px;
         --size-6: 12px;
+        --size-7: 10px;
 
         --weight-1: 700;
         --weight-2: 600;

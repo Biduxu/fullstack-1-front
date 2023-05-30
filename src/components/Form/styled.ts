@@ -13,4 +13,8 @@ export const FormStyled = styled.div`
         font-size: var(--size-1);
         color: var(--color-grey-0);
     }
+
+    @media(max-width: 800px) {
+        width: 100%;
+    }
 `
