@@ -5,4 +5,9 @@ export const ListContactsStyled = styled.ul`
     display: flex;
     flex-direction: column;
     gap: 10px;
+
+    @media(max-width: 750px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
 `

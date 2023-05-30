@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 export const MainProjectStyled = styled.main`
     width: 100%;
+    padding: 0 20px;
 
     .content{
         margin: 0 auto;
